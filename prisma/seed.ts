@@ -2,9 +2,10 @@ import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
 import 'dotenv/config'
 
+// @ts-ignore - Prisma 7 requires datasourceUrl
 const prisma = new PrismaClient({
   datasourceUrl: process.env.DATABASE_URL,
-})
+} as any)
 
 async function main() {
   // Create admin user
