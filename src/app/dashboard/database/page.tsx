@@ -25,7 +25,7 @@ export default function DatabasePage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const containerId = searchParams.get('container')
+  const containerId = searchParams.get('containerId') || searchParams.get('container')
 
   const loadTables = useCallback(async () => {
     if (!container) return

@@ -34,7 +34,7 @@ export default function ServicesPage() {
   const [loading, setLoading] = useState(false)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
 
-  const containerId = searchParams.get('container')
+  const containerId = searchParams.get('containerId') || searchParams.get('container')
 
   const loadServices = useCallback(async () => {
     if (!container) return

@@ -27,7 +27,7 @@ export default function LogsPage() {
   const [loading, setLoading] = useState(false)
   const [autoRefresh, setAutoRefresh] = useState(false)
 
-  const containerId = searchParams.get('container')
+  const containerId = searchParams.get('containerId') || searchParams.get('container')
 
   const loadLogs = useCallback(async () => {
     if (!container) return

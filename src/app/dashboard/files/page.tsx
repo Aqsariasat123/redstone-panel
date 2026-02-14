@@ -30,7 +30,7 @@ export default function FilesPage() {
   const [fileContent, setFileContent] = useState<string>('')
   const [editMode, setEditMode] = useState(false)
 
-  const containerId = searchParams.get('container')
+  const containerId = searchParams.get('containerId') || searchParams.get('container')
 
   const loadFiles = useCallback(async (path: string) => {
     if (!container) return
