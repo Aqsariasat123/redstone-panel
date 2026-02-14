@@ -122,7 +122,7 @@ export class SSHClient {
         resolve(content)
       })
 
-      stream.on('error', (err) => {
+      stream.on('error', (err: Error) => {
         conn.end()
         reject(err)
       })
@@ -140,7 +140,7 @@ export class SSHClient {
         resolve()
       })
 
-      stream.on('error', (err) => {
+      stream.on('error', (err: Error) => {
         conn.end()
         reject(err)
       })
