@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(CLIENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  containers Container[]
+}
+
+model Container {
+  id          String   @id @default(cuid())
+  vmid        Int      @unique
+  name        String
+  hostname    String
+  ip          String
+  sshPort     Int      @default(22)
+  sshUser     String   @default("root")
+  sshPassword String
+  dbName      String?
+  dbUser      String?
+  dbPassword  String?
+  services    Service[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Service {
+  id          String      @id @default(cuid())
+  name        String
+  type        ServiceType
+  port        Int
+  command     String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  containerId String
+  container   Container @relation(fields: [containerId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+enum ServiceType {
+  PM2
+  SYSTEMD
+  NGINX
+  POSTGRESQL
+  CUSTOM
+}
